@@ -32,7 +32,12 @@
     <button class="button">Login</button>
   </div>
   <!-- Using special variables to check if the form is invalid and if the user has interacted with the fields -->
-  @if (emailInput.touched && passwordInput.touched && form.invalid) {
-    <p>Form is invalid. Please check the email and password fields.</p>
+  @if (emailInput.touched && emailInput.dirty && emailInput.invalid) {
+    <p>Email is invalid. Please type in a valid email address.</p>
+  }
+  @if (passwordInput.touched && passwordInput.dirty && passwordInput.invalid) {
+    <p>
+      Password is invalid. Please enter a password with at least 6 characters.
+    </p>
   }
 </form>
