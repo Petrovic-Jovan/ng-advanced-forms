@@ -4,14 +4,35 @@
   <div class="control-row">
     <div class="control no-margin">
       <label for="email">Email</label>
-      <input id="email" type="email" name="email" ngModel />
+      <!-- Special variable for email input: #emailInput -->
+      <input
+        id="email"
+        type="email"
+        name="email"
+        ngModel
+        required
+        email
+        #emailInput="ngModel"
+      />
     </div>
 
     <div class="control no-margin">
       <label for="password">Password</label>
-      <input id="password" type="password" name="password" ngModel />
+      <!-- Special variable for password input: #passwordInput -->
+      <input
+        id="password"
+        type="password"
+        name="password"
+        ngModel
+        minlength="6"
+        #passwordInput="ngModel"
+      />
     </div>
 
     <button class="button">Login</button>
   </div>
+  <!-- Using special variables to check if the form is invalid and if the user has interacted with the fields -->
+  @if (emailInput.touched && passwordInput.touched && form.invalid) {
+    <p>Form is invalid. Please check the email and password fields.</p>
+  }
 </form>

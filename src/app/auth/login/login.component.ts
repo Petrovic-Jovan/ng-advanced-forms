@@ -10,6 +10,16 @@ import { FormsModule, NgForm } from '@angular/forms';
 })
 export class LoginComponent {
   onSubmit(form: NgForm) {
+    if (form.invalid) {
+      return;
+    }
+
+    const email = form.value.email;
+    const password = form.value.password;
+
     console.log(form);
+
+    console.log('Email:', email);
+    console.log('Password:', password);
   }
 }
