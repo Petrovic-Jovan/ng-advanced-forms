@@ -32,6 +32,9 @@ export class LoginComponent {
               JSON.stringify({ email: value.email }),
             ),
         });
+      this.destroyRef.onDestroy(() => {
+        subscription?.unsubscribe();
+      });
     });
   }
 
