@@ -1,5 +1,12 @@
-import { Component } from '@angular/core';
+import {
+  afterNextRender,
+  Component,
+  DestroyRef,
+  inject,
+  viewChild,
+} from '@angular/core';
 import { FormsModule, NgForm } from '@angular/forms';
+import { debounceTime } from 'rxjs';
 
 @Component({
   selector: 'app-login',
@@ -9,6 +16,25 @@ import { FormsModule, NgForm } from '@angular/forms';
   styleUrl: './login.component.css',
 })
 export class LoginComponent {
+  // Using viewChild to get a reference to the form in html
+  private form = viewChild.required<NgForm>('form');
+
+  private destroyRef = inject(DestroyRef);
+
+  constructor() {
+    afterNextRender(() => {
+      const subscription = this.form()
+        .valueChanges?.pipe(debounceTime(500))
+        .subscribe({
+          next: (value) =>
+            window.localStorage.setItem(
+              'saved-login-form',
+              JSON.stringify({ email: value.email }),
+            ),
+        });
+    });
+  }
+
   onSubmit(form: NgForm) {
     if (form.invalid) {
       return;
