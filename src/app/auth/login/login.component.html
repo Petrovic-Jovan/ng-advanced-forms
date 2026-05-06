@@ -1,15 +1,17 @@
-<form>
+<form [formGroup]="form">
   <h2>Login</h2>
 
   <div class="control-row">
     <div class="control no-margin">
       <label for="email">Email</label>
-      <input id="email" type="email" />
+      <!-- formControl directive can be used in this (longer) way to register email control -->
+      <input id="email" type="email" [formControl]="form.controls.email" />
     </div>
 
     <div class="control no-margin">
       <label for="password">Password</label>
-      <input id="password" type="password" />
+      <!-- formControlName directive is maybe shorter and better way to register password control -->
+      <input id="password" type="password" formControlName="password" />
     </div>
 
     <button class="button">Login</button>
