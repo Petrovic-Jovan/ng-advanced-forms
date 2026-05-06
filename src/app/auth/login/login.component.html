@@ -1,43 +1,17 @@
-<form #form="ngForm" (ngSubmit)="onSubmit(form)">
+<form>
   <h2>Login</h2>
 
   <div class="control-row">
     <div class="control no-margin">
       <label for="email">Email</label>
-      <!-- Special variable for email input: #emailInput -->
-      <input
-        id="email"
-        type="email"
-        name="email"
-        ngModel
-        required
-        email
-        #emailInput="ngModel"
-      />
+      <input id="email" type="email" />
     </div>
 
     <div class="control no-margin">
       <label for="password">Password</label>
-      <!-- Special variable for password input: #passwordInput -->
-      <input
-        id="password"
-        type="password"
-        name="password"
-        ngModel
-        minlength="6"
-        #passwordInput="ngModel"
-      />
+      <input id="password" type="password" />
     </div>
 
     <button class="button">Login</button>
   </div>
-  <!-- Using special variables to check if the form is invalid and if the user has interacted with the fields -->
-  @if (emailInput.touched && emailInput.dirty && emailInput.invalid) {
-    <p>Email is invalid. Please type in a valid email address.</p>
-  }
-  @if (passwordInput.touched && passwordInput.dirty && passwordInput.invalid) {
-    <p>
-      Password is invalid. Please enter a password with at least 6 characters.
-    </p>
-  }
 </form>
