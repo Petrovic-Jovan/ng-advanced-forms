@@ -1,4 +1,6 @@
-<form [formGroup]="form">
+<!-- Reactive Form: it is needed to bind directive using two way data binding -->
+<!-- No need to pass any argument to onSubmit function, because we already have a reference to the form in the component -->
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
   <h2>Login</h2>
 
   <div class="control-row">
