@@ -1,10 +1,22 @@
 import { Component } from '@angular/core';
 import {
+  AbstractControl,
   FormControl,
   FormGroup,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+
+// Custom validator function that checks if the control's value contains a question mark
+// Must receive an AbstractControl as an argument and return either null (if valid) or an object with error information (if invalid)
+function mustContainQuestionMark(control: AbstractControl) {
+  if (control.value.includes('?')) {
+    return null;
+  } else {
+    // Return an object with a key that describes the error and a value that can provide additional information about the error
+    return { doesNotContainQuestionMark: true };
+  }
+}
 
 @Component({
   selector: 'app-login',
@@ -23,7 +35,13 @@ export class LoginComponent {
       validators: [Validators.email, Validators.required],
     }),
     password: new FormControl('', {
-      validators: [Validators.minLength(6), Validators.required],
+      // Custom validators are added in the same way as built-in validators, just by including the custom
+      // validator function in the array of validators (no need to call the function, just pass the reference to it)
+      validators: [
+        Validators.minLength(6),
+        Validators.required,
+        mustContainQuestionMark,
+      ],
     }),
   });
 
