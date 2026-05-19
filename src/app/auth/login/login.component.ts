@@ -6,6 +6,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
+import { of } from 'rxjs';
 
 // Custom validator function that checks if the control's value contains a question mark
 // Must receive an AbstractControl as an argument and return either null (if valid) or an object with error information (if invalid)
@@ -16,6 +17,15 @@ function mustContainQuestionMark(control: AbstractControl) {
     // Return an object with a key that describes the error and a value that can provide additional information about the error
     return { doesNotContainQuestionMark: true };
   }
+}
+
+// Example of an asynchronous validator function that simulates checking if an email is unique
+// It needs to return an Observable that emits either null (if valid) or an object with error information (if invalid)
+function emailIsUnique(control: AbstractControl) {
+  if (control.value !== 'test@example.com') {
+    return of(null);
+  }
+  return of({ emailNotUnique: true });
 }
 
 @Component({
@@ -42,6 +52,7 @@ export class LoginComponent {
         Validators.required,
         mustContainQuestionMark,
       ],
+      asyncValidators: [emailIsUnique],
     }),
   });
 
